@@ -13,10 +13,12 @@ public class AwsClaudeClient implements ClaudeClient {
     private final String modelId;
 
     public AwsClaudeClient(String modelId) {
-        this.bedrockClient = BedrockRuntimeClient
-                .builder()
-                .region(Region.US_EAST_1)
-                .build();
+        this(BedrockRuntimeClient.builder().region(Region.US_EAST_1).build(), modelId);
+    }
+
+    // Constructor for dependency injection
+    public AwsClaudeClient(BedrockRuntimeClient bedrockClient, String modelId) {
+        this.bedrockClient = bedrockClient;
         this.modelId = modelId;
     }
 
